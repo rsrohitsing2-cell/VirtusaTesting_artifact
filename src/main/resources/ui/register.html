@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Account</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #333333;
+      --muted: #777777;
+      --border: #dddddd;
+      --primary: #229ac8;
+      --primary-hover: #1c82a9;
+      --header: #2a2a2a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: var(--header);
+      color: #fff;
+      padding: 16px 32px;
+    }
+    header h2 { margin: 0; font-weight: 500; font-size: 20px; }
+    main {
+      max-width: 860px;
+      margin: 28px auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px 32px 36px;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; font-weight: 500; }
+    .legend {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 0 0 22px;
+    }
+    legend {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      padding: 0;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    label { font-size: 14px; }
+    label .req { color: #d00; }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"] {
+      width: 100%;
+      max-width: 420px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    .radio-row, .check-row {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    input[type="submit"] {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 3px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover { background: var(--primary-hover); }
+    .error {
+      display: none;
+      color: #a94442;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .error.visible { display: block; }
+    @media (max-width: 640px) {
+      .row { grid-template-columns: 1fr; }
+      main { margin: 12px; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Your Store</h2>
+  </header>
+  <main>
+    <h1>Register Account</h1>
+    <p class="legend">If you already have an account with us, please login at the login page.</p>
+    <form id="form-register" action="success.html" method="get" novalidate>
+      <fieldset>
+        <legend>Your Personal Details</legend>
+        <div class="row">
+          <label for="input-firstname">First Name <span class="req">*</span></label>
+          <input id="input-firstname" name="firstname" type="text">
+        </div>
+        <div class="row">
+          <label for="input-lastname">Last Name <span class="req">*</span></label>
+          <input id="input-lastname" name="lastname" type="text">
+        </div>
+        <div class="row">
+          <label for="input-email">E-Mail <span class="req">*</span></label>
+          <input id="input-email" name="email" type="email">
+        </div>
+        <div class="row">
+          <label for="input-telephone">Telephone <span class="req">*</span></label>
+          <input id="input-telephone" name="telephone" type="tel">
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Your Password</legend>
+        <div class="row">
+          <label for="input-password">Password <span class="req">*</span></label>
+          <input id="input-password" name="password" type="password">
+        </div>
+        <div class="row">
+          <label for="input-confirm">Password Confirm <span class="req">*</span></label>
+          <input id="input-confirm" name="confirm" type="password">
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Newsletter</legend>
+        <div class="row">
+          <label>Subscribe</label>
+          <div class="radio-row">
+            <label><input type="radio" name="newsletter" value="1"> Yes</label>
+            <label><input type="radio" name="newsletter" value="0" checked> No</label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="check-row">
+        <label>
+          <input type="checkbox" name="agree" value="1">
+          I have read and agree to the Privacy Policy
+        </label>
+      </div>
+      <p id="form-error" class="error">Please complete all required fields and accept the Privacy Policy.</p>
+      <div class="actions">
+        <input type="submit" value="Continue">
+      </div>
+    </form>
+  </main>
+  <script>
+    document.getElementById("form-register").addEventListener("submit", function (event) {
+      var firstName = document.getElementById("input-firstname").value.trim();
+      var lastName = document.getElementById("input-lastname").value.trim();
+      var email = document.getElementById("input-email").value.trim();
+      var telephone = document.getElementById("input-telephone").value.trim();
+      var password = document.getElementById("input-password").value;
+      var confirm = document.getElementById("input-confirm").value;
+      var agree = document.querySelector("input[name='agree']").checked;
+      var complete = firstName && lastName && email && telephone && password && confirm && agree && password === confirm;
+      if (!complete) {
+        event.preventDefault();
+        document.getElementById("form-error").classList.add("visible");
+      }
+    });
+  </script>
+</body>
+</html>
