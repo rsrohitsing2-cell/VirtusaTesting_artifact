@@ -12,6 +12,8 @@ import java.time.Duration;
 
 public class RegistrationPageObject {
     
+
+     it is the commeting added to project
     private WebDriver driver;
     private WebDriverWait wait;
     private static final String REMOTE_PAGE_URL = "https://tutorialsninja.com/demo/index.php?route=account/register";
